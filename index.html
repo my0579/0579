@@ -2,176 +2,165 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>0579 Academy</title>
+  <title>0579</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #fff; color: #4169e1;}
-    header {
-      background: #4169e1;
-      color: #fff;
-      text-align: center;
-      padding: 24px 0 8px 0;
+    :root {
+      --primary:#4169e1;
+      --primary-dark:#27409a;
+      --muted:#f3f6fa;
+      --card:#ffffff;
     }
+
+    body { margin: 0; font-family: Arial, sans-serif; background: #fff; color: var(--primary); }
+    header { background: var(--primary); color: #fff; text-align: center; padding: 24px 0 8px 0; }
+
     .top-ticker-container, .bottom-ticker-container {
-      background: #ffd700;
-      color: #4169e1;
-      font-weight: bold;
-      font-size: 18px;
-      padding: 12px 0;
-      text-align: center;
-      letter-spacing: 1px;
-      overflow: hidden;
+      background: #ffd700; color: var(--primary);
+      font-weight: bold; font-size: 18px;
+      padding: 12px 0; text-align:center;
+      overflow:hidden;
     }
-    .top-ticker-content, #bottom-ticker {
-      display: inline-block;
-      white-space: nowrap;
-      animation: scroll-left 18s linear infinite;
-    }
-    @keyframes scroll-left {
-      0% { transform: translateX(100%);}
-      100% { transform: translateX(-100%);}
-    }
+    .top-ticker-content, #bottom-ticker { display:inline-block; white-space:nowrap; animation:scroll-left 18s linear infinite; }
+    @keyframes scroll-left { 0%{transform:translateX(100%);} 100%{transform:translateX(-100%);} }
+
     .accordion {
-      background: #4169e1;
-      color: #fff;
-      font-weight: bold;
-      padding: 18px 22px;
-      border: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      margin: 0 0 8px 0;
-      font-size: 20px;
-      transition: background 0.2s;
-      outline: none;
-      box-sizing: border-box;
-      border-radius: 6px;
+      background: var(--primary); color: #fff;
+      cursor:pointer; padding: 14px 18px; width:100%;
+      text-align:left; border:none; font-size:18px;
+      border-radius:6px; margin: 8px 0; box-sizing:border-box;
+      transition: background .25s;
     }
-    .accordion:hover, .accordion[aria-expanded="true"] {
-      background: #27409a;
-    }
+    .accordion:hover, .accordion[aria-expanded="true"] { background: var(--primary-dark); }
+
     .panel {
-      max-height: 0;
-      overflow: hidden;
-      background: #fff;
-      color: #222;
-      transition: max-height 0.35s cubic-bezier(.4,0,.2,1);
-      padding: 0 22px;
-      border-bottom: 1px solid #eee;
-      box-sizing: border-box;
+      max-height: 0; overflow: hidden;
+      transition: max-height .36s ease, padding .36s ease;
+      background: transparent; padding: 0;
     }
     .panel.open {
-      max-height: 1000px;
-      padding: 18px 22px;
+      padding: 16px 0 28px 0;
+      max-height: 2000px;
     }
-    .test-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-bottom: 10px;
-    }
+
+    .test-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
     .test-link {
-      text-decoration: none;
-      color: #fff;
-      background-color: #4169e1;
-      padding: 5px 8px;
-      border-radius: 4px;
-      font-size: 14px;
-      transition: background-color 0.2s;
-      margin: 2px;
+      text-decoration: none; color: #fff;
+      background-color: var(--primary);
+      padding: 6px 10px; border-radius: 4px;
+      font-size: 14px; transition: background-color .2s;
     }
-    .test-link:hover {
-      background: #27409a;
+    .test-link:hover { background: var(--primary-dark); }
+
+    /* Notes + Wikipedia */
+    .accordion-inner-card {
+      background: var(--muted);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      margin: 10px 0;
     }
-    .notes-container {
-      background: #e6e6e6;
+
+    .notes-flex {
+      display:flex; gap: 30px;
+      justify-content: center; align-items:flex-start;
+      max-width: 1400px; margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .wiki-section, .note-section {
+      flex: 1 1 48%;
+      background: var(--card);
+      border-radius: 10px;
       padding: 20px;
-      margin: 40px auto 0 auto;
-      max-width: 600px;
-      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      min-width: 420px;
     }
-    .notes-container h3 { color:#4169e1; margin-top:0;}
-    #noteBox { width:100%; min-height:120px; padding:10px; font-size:16px; border:1px solid #ccc; background:#fff; color:#222; border-radius:5px;}
-    .input-row { margin:10px 0;}
-    .notes-container input, .notes-container button { padding:8px; font-size:15px;}
-    .notes-container button { background:#4169e1; color:#fff; border:none; border-radius:5px; cursor:pointer;}
-    .notes-container button:hover { background:#27409a;}
-    .message { margin:12px 0; font-weight:bold; }
-    iframe { width:100%; height:230px; border:1px solid #ccc; border-radius:5px; margin-top:10px; }
+
+    .wiki-section h4, .note-section h4 { margin:0 0 12px 0; color:var(--primary); text-align:center; font-size:20px; }
+
+    .wiki-search-bar { display:flex; gap:10px; margin-bottom:12px; }
+    .wiki-input { flex:1; padding:10px; font-size:14px; border-radius:6px; border:1px solid #ccc; }
+    .wiki-btn { padding:10px 14px; background:var(--primary); color:#fff; border:none; border-radius:6px; cursor:pointer; }
+    .wiki-btn:hover { background:var(--primary-dark); }
+    iframe#wikiFrame { width:100%; height:520px; border:1px solid #dcdcdc; border-radius:8px; }
+
+    .note-section { background: #eef6ff; }
+    .note-section form { display:flex; flex-direction:column; gap:12px; }
+    .input-row.dual { display:flex; gap:10px; }
+    .input-row.dual input { flex:1; padding:10px; font-size:15px; border-radius:6px; border:1px solid #ccc; }
+    label[for="noteBox"] { font-weight:600; display:block; margin-bottom:4px; }
+    #noteBox {
+      width:100%; min-height:520px; padding:14px; font-size:16px;
+      border-radius:8px; border:1px solid #ccc;
+      background: #fff; color:#222; line-height:1.6;
+      resize:vertical;
+    }
+
+    .input-row.center { text-align:center; margin-top:4px; }
+    .note-section button { padding:10px 20px; background:var(--primary); color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
+    .note-section button:hover { background:var(--primary-dark); }
+    .message { display:block; margin-top:8px; font-weight:700; }
+
+    footer { background: var(--primary); color:#fff; text-align:center; padding:10px; margin-top:24px; }
+
     @media (max-width: 900px) {
-      .test-row { flex-direction: column; }
-      .notes-container { padding: 8px; }
+      .notes-flex { flex-direction: column; align-items: center; gap:20px; }
+      .wiki-section, .note-section { flex-basis: 100%; min-width: unset; }
+      iframe#wikiFrame { height:420px; }
+      #noteBox { min-height: 420px; }
     }
+
     @media (max-width: 600px) {
-      .accordion, .panel { font-size: 17px; padding-left: 10px; padding-right: 10px; }
-      .test-row { flex-direction: column; }
-      .notes-container { padding: 8px; }
-    }
-    footer {
-      background: #4169e1;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      margin-top: 24px;
-    }
-    .level-header {
-      font-weight: bold;
-      margin: 10px 0 5px 0;
-      color: #4169e1;
-      font-size: 16px;
+      .accordion { font-size:16px; padding:12px; }
+      iframe#wikiFrame { height: 320px; }
+      #noteBox { min-height: 300px; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>0579</h1>
-    <p>"영어친구 학원에 오신 것을 환영합니다."</p>
+    <p>"영어친구에 오신 것을 환영합니다."</p>
   </header>
+
   <div class="top-ticker-container">
-    <span class="top-ticker-content">
-      Welcome to 0579 "Learning English can open up a world of opportunities for you" by 0579
-    </span>
+    <span class="top-ticker-content">Welcome to 0579 — "Learning English can open up a world of opportunities for you"</span>
   </div>
 
-  <button class="accordion" aria-expanded="false">학원소개</button>
+  <!-- 0579 소개 -->
+  <button class="accordion" aria-expanded="false">  원장소개 & 수강신청</button>
   <div class="panel">
-    <h3>수강과목</h3>
-    <ul>
-      <li>AI 활용 스마트폰 영어학습법</li>
-      <li>레벨테스트</li>
-      <li>발음교정</li>
-      <li>문법강의</li>
+      <ul>
+      <h3>원장 소개</h3>
+      <li>영어독서지도사 1급, 파닉스영어교육지도사 1급</li> 
+      <li>Tesol 지도사 1급, Melbourne Univ 졸, 해외거주 8년</li>
+      <li>영어강사경력 20년</li> 
+      <li>전화 및 문자 상담 010-4733-0579 </li>
+      <li>이메일 0579ohjoonyeong@gmail.com </li>
+      
+    <h3>특별 프로그램</h3> 
+      <li>특강 AI 활용 스마트폰 영어학습법</li>
+      <li>특강 AI 활용 코딩 영어 학습법 HTML, CSS, Java Script</li>
+      <li>특강 English IPA 학습으로 영영사전 줄줄 읽기
+      <li>온라인 학습으로 미국대학 졸업장 따기</li>
+      <li>영어일기쓰기 습관화 만들기</li>
+      
+    <h3>학생들을 위한 프로그램</h3>   
+      <li>초,중,고,대학,일반 대상 레벨테스트 / 발음교정 / 문법강의</li>
+      <li>연령별 맞춤식 학습가능</li> 
       <li>듣기, 말하기, 독해, 작문</li>
-      <li>영어일기쓰기 교정</li>
-      <li>중등/고등/모의고사 쪽집게 풀이</li>
-      <li>영어 스피치 & 각종 창의력 대회 준비</li>
-      <li>
-        자녀 영어교육 상담 희망문자 및 예약: <br>
-        ☎ 010-4733-0579 <br>
-        ✉ ciaohjoonyeong@gmail.com
-      </li>
+      <li>중등/고등/모의고사 만점 쪽집게 풀이</li>
+      <li>영어 스피치 & 창의력, 토론 대회 준비</li>
+      
+    <h3>성인들을 위한 프로그램</h3>
+      <li>뉴스기사 리딩 후 토론하기, 팝송 부르기, 영화 스크립트 읽기 </li>
+      
     </ul>
-    <button class="accordion" aria-expanded="false">학원자료실</button>
-    <div class="panel">
-      <h3>자료종류</h3>
-      <ol>
-        <li>유튜브 강의</li>
-        <li>모의고사 다운로드</li>
-        <li>원장 특별강의 다운로드</li>
-      </ol>
-    </div>
-    <h3>학생 규정 및 환불규정</h3>
-    <ul>
-      <li>강의 및 학습이 어려운 경우, 즉시 귀가조치</li>
-      <li>단정한 복장 착용과 예의바른 언어사용</li>
-      <li>단순 변심으로 인한 수업 중단 시 환불 규정 적용</li>
-    </ul>
-    <h3>학원비 및 교재비 수납 계좌</h3>
-    <p>기업은행 : 010-4733-0579 (예금주: 오준영)</p>
   </div>
 
+  <!-- 상담 -->
   <button class="accordion" aria-expanded="false">신규 및 학부모 상담</button>
   <div class="panel">
     <h3>학원소개영상</h3>
@@ -188,6 +177,39 @@
     </ol>
   </div>
 
+  <!-- Teachers' Guide -->
+  <button class="accordion" aria-expanded="false">Teachers' Guide</button>
+  <div class="panel">
+    <div class="test-row">
+      <a href="#" class="test-link">Guide 1</a>
+      <a href="#" class="test-link">Guide 2</a>
+    </div>
+  </div>
+  
+  <!-- 레벨 테스트 -->
+  <button class="accordion" aria-expanded="false">수강생 학원 교재</button>
+  <div class="panel">
+    <div class="teㅌt-row">
+      <a href="tests/level-1/placement/index.html" class="test-link">L1 Text</a>
+      <a href="tests/level-2/placement/index.html" class="test-link">L2 Text</a>
+      <a href="tests/level-3/placement/index.html" class="test-link">L3 Text</a>
+      <a href="tests/level-4/placement/index.html" class="test-link">L4 Text</a>
+    </div>
+    <div class="test-row">
+      <a href="tests/level-5/placement/index.html" class="test-link">L5 Text</a>
+      <a href="tests/level-6/placement/index.html" class="test-link">L6 Text</a>
+      <a href="tests/level-7/placement/index.html" class="test-link">L7 Text</a>
+      <a href="tests/level-8/placement/index.html" class="test-link">L8 Text</a>
+    </div>
+    <div class="test-row">
+      <a href="tests/level-9/placement/index.html" class="test-link">L9 Text</a>
+      <a href="tests/level-10/placement/index.html" class="test-link">L10 Text</a>
+      <a href="tests/level-11/placement/index.html" class="test-link">L11 Text</a>
+      <a href="tests/level-12/placement/index.html" class="test-link">L12 Text</a>
+    </div>
+  </div>
+  
+  <!-- 레벨 테스트 -->
   <button class="accordion" aria-expanded="false">수강생 레벨 테스트</button>
   <div class="panel">
     <div class="test-row">
@@ -221,116 +243,109 @@
       <a href="#" class="test-link">Writing</a>
     </div>
   </div>
-
+  <!-- Notes Section -->
   <button class="accordion" aria-expanded="false">수강생 학습노트</button>
-  <div class="notes-container">
-  <div class="notes-flex">
-    <div class="note-pad">
-      <h3>📝 학생 학습노트 제출</h3>
-      <form id="studentNoteForm" onsubmit="return false;">
-        <div class="input-row">
-          이름(닉네임): <input type="text" id="from_name" name="from_name" required>
-        </div>
-        <div class="input-row">
-          이메일 주소: <input type="email" id="email" name="email" required placeholder="your@email.com">
-        </div>
-        <div class="input-row">
-          <div id="noteBox" contenteditable="true" style="background:#fff;">여기에 노트를 작성하세요...</div>
-          <input type="hidden" id="message" name="message">
-        </div>
-        <div class="input-row">
-          <button type="button" onclick="sendNote()">✉️ 선생님께 바로 제출하기</button>
-          <span id="msg" class="message"></span>
-        </div>
-      </form>
-    </div>
-    <div class="wiki-section">
-      <h4 style="color:#4169e1;margin-top:0;">Wikipedia</h4>
-      <input type="text" id="wikiQuery" placeholder="Search Wikipedia..." class="wiki-input">
-      <button onclick="searchWiki()" class="wiki-btn">Search</button>
-      <iframe id="wikiFrame" src="https://en.wikipedia.org/wiki/Main_Page"></iframe>
-    </div>
-  </div>
-</div>
-
-  <button class="accordion" aria-expanded="false">Teachers' Guide</button>
   <div class="panel">
-    <div class="test-row">
-      <a href="#" class="test-link">Guide 1</a>
-      <a href="#" class="test-link">Guide 2</a>
+    <div class="accordion-inner-card">
+      <div class="notes-flex">
+        <div class="wiki-section">
+          <h4>🌍 Wikipedia</h4>
+          <div class="wiki-search-bar">
+            <input type="text" id="wikiQuery" placeholder="Search Wikipedia..." class="wiki-input" />
+            <button type="button" class="wiki-btn" id="wikiSearchBtn">Search</button>
+          </div>
+          <iframe id="wikiFrame" src="https://en.wikipedia.org/wiki/Main_Page"></iframe>
+        </div>
+
+        <div class="note-section">
+          <h4>📝 학생 학습노트 작성</h4>
+          <form id="studentNoteForm" onsubmit="return false;">
+            <div class="input-row dual">
+              <input type="text" id="from_name" required placeholder="이름 또는 닉네임" />
+              <input type="email" id="email" required placeholder="이메일 주소 (@email.com)" />
+            </div>
+
+            <div class="input-row">
+              <label for="noteBox">학습노트를 작성하세요:</label>
+              <div id="noteBox" contenteditable="true">여기에 노트를 작성하세요...</div>
+            </div>
+
+            <div class="input-row center">
+              <button type="button" id="sendBtn">✉️ 선생님께 제출하기</button>
+              <span id="msg" class="message"></span>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
+
 
   <div class="bottom-ticker-container">
     <div id="bottom-ticker">
-      <span>
-        <a href="https://www.cnn.com/2025/09/25/europe/russia-daytime-drone-attacks-ukraine-intl-cmd" target="_blank">Russia's Daytime Drone Attacks on Ukraine</a>
-      </span>
-      <span>
-        <a href="https://www.cnn.com/2025/09/24/world/yemen-drone-attack-eilat-intl-latam" target="_blank">Yemen Drone Attack on Eilat</a>
-      </span>
-      <span>
-        <a href="https://www.cnn.com/2025/09/22/europe/copenhagen-oslo-airport-closed-drones-int-latam" target="_blank">Copenhagen & Oslo Airports Closed Due to Drones</a>
-      </span>
-      <span>
-        <a href="https://www.cnn.com/2025/09/23/middleeast/recognizing-palestinian-state-explainer-intl-latam" target="_blank">Explainer: Recognizing a Palestinian State</a>
-      </span>
+      <span><a href="https://www.cnn.com/2025/09/25/europe/russia-daytime-drone-attacks-ukraine-intl-cmd" target="_blank">Russia Drone Attacks on Ukraine</a></span>
+      <span><a href="https://www.cnn.com/2025/09/24/world/yemen-drone-attack-eilat-intl-latam" target="_blank">Yemen Drone Attack on Eilat</a></span>
     </div>
   </div>
 
   <footer>
     <p>© 0579 Academy | All Rights Reserved</p>
   </footer>
- <script>
-  // Accordion logic
-  document.querySelectorAll('.accordion').forEach(acc => {
-    acc.addEventListener('click', function() {
-      const panel = acc.nextElementSibling;
-      panel.classList.toggle('open');
-      acc.setAttribute("aria-expanded", panel.classList.contains('open') ? "true" : "false");
+
+  <script>
+    // Accordion behavior
+    document.querySelectorAll('.accordion').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.accordion').forEach(b => {
+          if (b !== button) {
+            b.setAttribute('aria-expanded', 'false');
+            const p = b.nextElementSibling;
+            if (p && p.classList.contains('panel')) p.classList.remove('open');
+          }
+        });
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', !expanded);
+        const panel = button.nextElementSibling;
+        if (panel) panel.classList.toggle('open', !expanded);
+      });
     });
-  });
 
-  // Initialize EmailJS with your public API key (User ID)
-  emailjs.init("gg8aoOMxOtdSQOwmJ"); // <-- Corrected Public Key
+    // Wikipedia search
+    document.getElementById('wikiSearchBtn').addEventListener('click', () => {
+      const q = document.getElementById('wikiQuery').value.trim();
+      if (q) document.getElementById('wikiFrame').src = 'https://en.wikipedia.org/wiki/' + encodeURIComponent(q);
+    });
 
-  function sendNote() {
-    var from_name = document.getElementById("from_name").value.trim();
-    var email = document.getElementById("email").value.trim();
-    var message = document.getElementById("noteBox").innerText.trim();
-    document.getElementById('message').value = message;
-    var time = new Date().toLocaleString();
-
-    if (!from_name || !email || !message) {
-      document.getElementById("msg").textContent = "이름, 이메일, 노트를 모두 입력하세요!";
-      document.getElementById("msg").style.color = "red";
-      return;
+    // EmailJS initialization
+    if (window.emailjs && typeof emailjs.init === 'function') {
+      emailjs.init('gg8aoOMxOtdSQOwmJ');
     }
 
-    // Send via EmailJS, using your Service ID and Template ID
-    emailjs.send("service_ctxz45a", "template_student_note", {
-      from_name: from_name,
-      email: email,
-      message: message,
-      time: time
-    })
-    .then(function() {
-      document.getElementById("msg").textContent = "선생님께 성공적으로 전송되었습니다!";
-      document.getElementById("msg").style.color = "green";
-      document.getElementById("studentNoteForm").reset();
-      document.getElementById("noteBox").innerText = "여기에 노트를 작성하세요...";
-    }, function(error) {
-      document.getElementById("msg").textContent = "전송에 실패했습니다. 다시 시도하세요.";
-      document.getElementById("msg").style.color = "red";
-      console.error("EmailJS error:", error);
-    });
-  }
+    // Send note function
+    document.getElementById('sendBtn').addEventListener('click', async () => {
+      const name = document.getElementById('from_name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const text = document.getElementById('noteBox').innerText.trim();
+      const msg = document.getElementById('msg');
 
-  function searchWiki() {
-    const query = document.getElementById("wikiQuery").value.trim();
-    if (!query) return;
-    document.getElementById("wikiFrame").src = "https://en.wikipedia.org/wiki/" + encodeURIComponent(query);
-  }
-</script>
+      if (!name || !email || !text) {
+        msg.textContent = '⚠️ 이름, 이메일, 노트를 모두 입력해주세요.';
+        msg.style.color = 'red';
+        return;
+      }
+
+      try {
+        await emailjs.send('service_ctxz45a', 'template_student_note', {
+          from_name: name, email, message: text, time: new Date().toLocaleString()
+        });
+        msg.textContent = '✅ 제출 완료! 감사합니다.';
+        msg.style.color = 'green';
+        document.getElementById('noteBox').innerText = '여기에 노트를 작성하세요...';
+      } catch (err) {
+        msg.textContent = '⚠️ 전송에 실패했습니다. 나중에 다시 시도해주세요.';
+        msg.style.color = 'red';
+      }
+    });
+  </script>
 </body>
 </html>
