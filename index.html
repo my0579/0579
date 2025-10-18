@@ -278,55 +278,55 @@
     <p>© 0579 Academy | All Rights Reserved</p>
   </footer>
  <script>
-    // Accordion logic
-    document.querySelectorAll('.accordion').forEach(acc => {
-      acc.addEventListener('click', function() {
-        const panel = acc.nextElementSibling;
-        panel.classList.toggle('open');
-        acc.setAttribute("aria-expanded", panel.classList.contains('open') ? "true" : "false");
-      });
+  // Accordion logic
+  document.querySelectorAll('.accordion').forEach(acc => {
+    acc.addEventListener('click', function() {
+      const panel = acc.nextElementSibling;
+      panel.classList.toggle('open');
+      acc.setAttribute("aria-expanded", panel.classList.contains('open') ? "true" : "false");
     });
+  });
 
-    // Initialize EmailJS with your public API key
-    emailjs.init("Ouyx6nPoDQBY_Q15c"); // <--- Your User ID / Public API key
+  // Initialize EmailJS with your public API key (User ID)
+  emailjs.init("gg8aoOMxOtdSQOwmJ"); // <-- Corrected Public Key
 
-    function sendNote() {
-      var from_name = document.getElementById("from_name").value.trim();
-      var email = document.getElementById("email").value.trim();
-      var message = document.getElementById("noteBox").innerText.trim();
-      document.getElementById('message').value = message;
-      var time = new Date().toLocaleString();
+  function sendNote() {
+    var from_name = document.getElementById("from_name").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var message = document.getElementById("noteBox").innerText.trim();
+    document.getElementById('message').value = message;
+    var time = new Date().toLocaleString();
 
-      if (!from_name || !email || !message) {
-        document.getElementById("msg").textContent = "이름, 이메일, 노트를 모두 입력하세요!";
-        document.getElementById("msg").style.color = "red";
-        return;
-      }
-
-      // Send via EmailJS, using your Service ID and Template ID
-      emailjs.send("service_ctxz45a", "template_student_note", { // <--- Replace with your actual Template ID if needed!
-        from_name: from_name,
-        email: email,
-        message: message,
-        time: time
-      })
-      .then(function() {
-        document.getElementById("msg").textContent = "선생님께 성공적으로 전송되었습니다!";
-        document.getElementById("msg").style.color = "green";
-        document.getElementById("studentNoteForm").reset();
-        document.getElementById("noteBox").innerText = "여기에 노트를 작성하세요...";
-      }, function(error) {
-        document.getElementById("msg").textContent = "전송에 실패했습니다. 다시 시도하세요.";
-        document.getElementById("msg").style.color = "red";
-        console.error("EmailJS error:", error);
-      });
+    if (!from_name || !email || !message) {
+      document.getElementById("msg").textContent = "이름, 이메일, 노트를 모두 입력하세요!";
+      document.getElementById("msg").style.color = "red";
+      return;
     }
 
-    function searchWiki() {
-      const query = document.getElementById("wikiQuery").value.trim();
-      if (!query) return;
-      document.getElementById("wikiFrame").src = "https://en.wikipedia.org/wiki/" + encodeURIComponent(query);
-    }
+    // Send via EmailJS, using your Service ID and Template ID
+    emailjs.send("service_ctxz45a", "template_student_note", {
+      from_name: from_name,
+      email: email,
+      message: message,
+      time: time
+    })
+    .then(function() {
+      document.getElementById("msg").textContent = "선생님께 성공적으로 전송되었습니다!";
+      document.getElementById("msg").style.color = "green";
+      document.getElementById("studentNoteForm").reset();
+      document.getElementById("noteBox").innerText = "여기에 노트를 작성하세요...";
+    }, function(error) {
+      document.getElementById("msg").textContent = "전송에 실패했습니다. 다시 시도하세요.";
+      document.getElementById("msg").style.color = "red";
+      console.error("EmailJS error:", error);
+    });
+  }
+
+  function searchWiki() {
+    const query = document.getElementById("wikiQuery").value.trim();
+    if (!query) return;
+    document.getElementById("wikiFrame").src = "https://en.wikipedia.org/wiki/" + encodeURIComponent(query);
+  }
 </script>
 </body>
 </html>
