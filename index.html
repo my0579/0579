@@ -223,8 +223,9 @@
   </div>
 
   <button class="accordion" aria-expanded="false">수강생 학습노트</button>
-  <div class="panel">
-    <div class="notes-container">
+  <div class="notes-container">
+  <div class="notes-flex">
+    <div class="note-pad">
       <h3>📝 학생 학습노트 제출</h3>
       <form id="studentNoteForm" onsubmit="return false;">
         <div class="input-row">
@@ -242,12 +243,15 @@
           <span id="msg" class="message"></span>
         </div>
       </form>
-      <h4 style="color:#4169e1;margin-top:30px;">Wikipedia</h4>
-      <input type="text" id="wikiQuery" placeholder="Search Wikipedia..." style="width:70%;padding:8px;border-radius:3px; border:1px solid #ccc;">
-      <button onclick="searchWiki()" style="padding:8px 12px;background-color:#4169e1;color:white;border:none; cursor:pointer;">Search</button>
+    </div>
+    <div class="wiki-section">
+      <h4 style="color:#4169e1;margin-top:0;">Wikipedia</h4>
+      <input type="text" id="wikiQuery" placeholder="Search Wikipedia..." class="wiki-input">
+      <button onclick="searchWiki()" class="wiki-btn">Search</button>
       <iframe id="wikiFrame" src="https://en.wikipedia.org/wiki/Main_Page"></iframe>
     </div>
   </div>
+</div>
 
   <button class="accordion" aria-expanded="false">Teachers' Guide</button>
   <div class="panel">
