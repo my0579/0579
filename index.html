@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>0579 Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #fff; color: #4169e1;}
+    header {
+      background: #4169e1;
+      color: #fff;
+      text-align: center;
+      padding: 24px 0 8px 0;
+    }
+    .top-ticker-container, .bottom-ticker-container {
+      background: #ffd700;
+      color: #4169e1;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 12px 0;
+      text-align: center;
+      letter-spacing: 1px;
+      overflow: hidden;
+    }
+    .top-ticker-content, #bottom-ticker {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scroll-left 18s linear infinite;
+    }
+    @keyframes scroll-left {
+      0% { transform: translateX(100%);}
+      100% { transform: translateX(-100%);}
+    }
+    .accordion {
+      background: #4169e1;
+      color: #fff;
+      font-weight: bold;
+      padding: 18px 22px;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      transition: background 0.2s;
+      outline: none;
+      box-sizing: border-box;
+      border-radius: 6px;
+    }
+    .accordion:hover, .accordion[aria-expanded="true"] {
+      background: #27409a;
+    }
+    .panel {
+      max-height: 0;
+      overflow: hidden;
+      background: #fff;
+      color: #222;
+      transition: max-height 0.35s cubic-bezier(.4,0,.2,1);
+      padding: 0 22px;
+      border-bottom: 1px solid #eee;
+      box-sizing: border-box;
+    }
+    .panel.open {
+      max-height: 1000px;
+      padding: 18px 22px;
+    }
+    .test-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .test-link {
+      text-decoration: none;
+      color: #fff;
+      background-color: #4169e1;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: background-color 0.2s;
+      margin: 2px;
+    }
+    .test-link:hover {
+      background: #27409a;
+    }
+    .notes-container {
+      background: #e6e6e6;
+      padding: 20px;
+      margin: 40px auto 0 auto;
+      max-width: 600px;
+      border-radius: 8px;
+    }
+    .notes-container h3 { color:#4169e1; margin-top:0;}
+    #noteBox { width:100%; min-height:120px; padding:10px; font-size:16px; border:1px solid #ccc; background:#fff; color:#222; border-radius:5px;}
+    .input-row { margin:10px 0;}
+    .notes-container input, .notes-container button { padding:8px; font-size:15px;}
+    .notes-container button { background:#4169e1; color:#fff; border:none; border-radius:5px; cursor:pointer;}
+    .notes-container button:hover { background:#27409a;}
+    .message { margin:12px 0; font-weight:bold; }
+    iframe { width:100%; height:230px; border:1px solid #ccc; border-radius:5px; margin-top:10px; }
+    @media (max-width: 900px) {
+      .test-row { flex-direction: column; }
+      .notes-container { padding: 8px; }
+    }
+    @media (max-width: 600px) {
+      .accordion, .panel { font-size: 17px; padding-left: 10px; padding-right: 10px; }
+      .test-row { flex-direction: column; }
+      .notes-container { padding: 8px; }
+    }
+    footer {
+      background: #4169e1;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 24px;
+    }
+    .level-header {
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+      color: #4169e1;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>0579</h1>
+    <p>"영어친구 학원에 오신 것을 환영합니다."</p>
+  </header>
+  <div class="top-ticker-container">
+    <span class="top-ticker-content">
+      Welcome to 0579 "Learning English can open up a world of opportunities for you" by 0579
+    </span>
+  </div>
+
+  <button class="accordion" aria-expanded="false">학원소개</button>
+  <div class="panel">
+    <h3>수강과목</h3>
+    <ul>
+      <li>AI 활용 스마트폰 영어학습법</li>
+      <li>레벨테스트</li>
+      <li>발음교정</li>
+      <li>문법강의</li>
+      <li>듣기, 말하기, 독해, 작문</li>
+      <li>영어일기쓰기 교정</li>
+      <li>중등/고등/모의고사 쪽집게 풀이</li>
+      <li>영어 스피치 & 각종 창의력 대회 준비</li>
+      <li>
+        자녀 영어교육 상담 희망문자 및 예약: <br>
+        ☎ 010-4733-0579 <br>
+        ✉ ciaohjoonyeong@gmail.com
+      </li>
+    </ul>
+    <button class="accordion" aria-expanded="false">학원자료실</button>
+    <div class="panel">
+      <h3>자료종류</h3>
+      <ol>
+        <li>유튜브 강의</li>
+        <li>모의고사 다운로드</li>
+        <li>원장 특별강의 다운로드</li>
+      </ol>
+    </div>
+    <h3>학생 규정 및 환불규정</h3>
+    <ul>
+      <li>강의 및 학습이 어려운 경우, 즉시 귀가조치</li>
+      <li>단정한 복장 착용과 예의바른 언어사용</li>
+      <li>단순 변심으로 인한 수업 중단 시 환불 규정 적용</li>
+    </ul>
+    <h3>학원비 및 교재비 수납 계좌</h3>
+    <p>기업은행 : 010-4733-0579 (예금주: 오준영)</p>
+  </div>
+
+  <button class="accordion" aria-expanded="false">신규 및 학부모 상담</button>
+  <div class="panel">
+    <h3>학원소개영상</h3>
+    <h3>학원 프로그램 소개</h3>
+    <h3>학원 목표 및 정신</h3>
+    <h3>신규 등록 신청서</h3>
+    <h3>수강생 재등록 신청서</h3>
+    <h3>재학생 출결사항</h3>
+    <h3>재학생 수업태도 및 수업진도</h3>
+    <ol>
+      <li>유튜브 강의</li>
+      <li>모의고사 다운로드</li>
+      <li>원장 특별강의 다운로드</li>
+    </ol>
+  </div>
+
+  <button class="accordion" aria-expanded="false">수강생 레벨 테스트</button>
+  <div class="panel">
+    <div class="test-row">
+      <a href="tests/level-1/placement/index.html" class="test-link">L1 Placement</a>
+      <a href="tests/level-2/placement/index.html" class="test-link">L2 Placement</a>
+      <a href="tests/level-3/placement/index.html" class="test-link">L3 Placement</a>
+      <a href="tests/level-4/placement/index.html" class="test-link">L4 Placement</a>
+    </div>
+    <div class="test-row">
+      <a href="tests/level-5/placement/index.html" class="test-link">L5 Placement</a>
+      <a href="tests/level-6/placement/index.html" class="test-link">L6 Placement</a>
+      <a href="tests/level-7/placement/index.html" class="test-link">L7 Placement</a>
+      <a href="tests/level-8/placement/index.html" class="test-link">L8 Placement</a>
+    </div>
+    <div class="test-row">
+      <a href="tests/level-9/placement/index.html" class="test-link">L9 Placement</a>
+      <a href="tests/level-10/placement/index.html" class="test-link">L10 Placement</a>
+      <a href="tests/level-11/placement/index.html" class="test-link">L11 Placement</a>
+      <a href="tests/level-12/placement/index.html" class="test-link">L12 Placement</a>
+    </div>
+  </div>
+
+  <button class="accordion" aria-expanded="false">통합영어학습 테스트</button>
+  <div class="panel">
+    <div class="test-row">
+      <a href="#" class="test-link">Vocab</a>
+      <a href="#" class="test-link">Grammar</a>
+      <a href="#" class="test-link">Listening</a>
+      <a href="#" class="test-link">Speaking</a>
+      <a href="#" class="test-link">Reading</a>
+      <a href="#" class="test-link">Writing</a>
+    </div>
+  </div>
+
+  <button class="accordion" aria-expanded="false">수강생 학습노트</button>
+  <div class="panel">
+    <div class="notes-container">
+      <h3>📝 학생 학습노트 제출</h3>
+      <form id="studentNoteForm" onsubmit="return false;">
+        <div class="input-row">
+          이름(닉네임): <input type="text" id="from_name" name="from_name" required>
+        </div>
+        <div class="input-row">
+          이메일 주소: <input type="email" id="email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="input-row">
+          <div id="noteBox" contenteditable="true" style="background:#fff;">여기에 노트를 작성하세요...</div>
+          <input type="hidden" id="message" name="message">
+        </div>
+        <div class="input-row">
+          <button type="button" onclick="sendNote()">✉️ 선생님께 바로 제출하기</button>
+          <span id="msg" class="message"></span>
+        </div>
+      </form>
+      <h4 style="color:#4169e1;margin-top:30px;">Wikipedia</h4>
+      <input type="text" id="wikiQuery" placeholder="Search Wikipedia..." style="width:70%;padding:8px;border-radius:3px; border:1px solid #ccc;">
+      <button onclick="searchWiki()" style="padding:8px 12px;background-color:#4169e1;color:white;border:none; cursor:pointer;">Search</button>
+      <iframe id="wikiFrame" src="https://en.wikipedia.org/wiki/Main_Page"></iframe>
+    </div>
+  </div>
+
+  <button class="accordion" aria-expanded="false">Teachers' Guide</button>
+  <div class="panel">
+    <div class="test-row">
+      <a href="#" class="test-link">Guide 1</a>
+      <a href="#" class="test-link">Guide 2</a>
+    </div>
+  </div>
+
+  <div class="bottom-ticker-container">
+    <div id="bottom-ticker">
+      <span>
+        <a href="https://www.cnn.com/2025/09/25/europe/russia-daytime-drone-attacks-ukraine-intl-cmd" target="_blank">Russia's Daytime Drone Attacks on Ukraine</a>
+      </span>
+      <span>
+        <a href="https://www.cnn.com/2025/09/24/world/yemen-drone-attack-eilat-intl-latam" target="_blank">Yemen Drone Attack on Eilat</a>
+      </span>
+      <span>
+        <a href="https://www.cnn.com/2025/09/22/europe/copenhagen-oslo-airport-closed-drones-int-latam" target="_blank">Copenhagen & Oslo Airports Closed Due to Drones</a>
+      </span>
+      <span>
+        <a href="https://www.cnn.com/2025/09/23/middleeast/recognizing-palestinian-state-explainer-intl-latam" target="_blank">Explainer: Recognizing a Palestinian State</a>
+      </span>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 0579 Academy | All Rights Reserved</p>
+  </footer>
+  <script>
+    // Accordion logic
+    document.querySelectorAll('.accordion').forEach(acc => {
+      acc.addEventListener('click', function() {
+        const panel = acc.nextElementSibling;
+        panel.classList.toggle('open');
+        acc.setAttribute("aria-expanded", panel.classList.contains('open') ? "true" : "false");
+      });
+    });
+
+    // Initialize EmailJS with your user ID!
+    emailjs.init("YOUR_EMAILJS_USER_ID"); // <-- Replace with your EmailJS User ID
+
+    function sendNote() {
+      var from_name = document.getElementById("from_name").value.trim();
+      var email = document.getElementById("email").value.trim();
+      var message = document.getElementById("noteBox").innerText.trim();
+      document.getElementById('message').value = message;
+      var time = new Date().toLocaleString();
+
+      if (!from_name || !email || !message) {
+        document.getElementById("msg").textContent = "이름, 이메일, 노트를 모두 입력하세요!";
+        document.getElementById("msg").style.color = "red";
+        return;
+      }
+
+      // Send via EmailJS, match variable names to your EmailJS template!
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        from_name: from_name,
+        email: email,
+        message: message,
+        time: time
+      })
+      .then(function() {
+        document.getElementById("msg").textContent = "선생님께 성공적으로 전송되었습니다!";
+        document.getElementById("msg").style.color = "green";
+        document.getElementById("studentNoteForm").reset();
+        document.getElementById("noteBox").innerText = "";
+      }, function(error) {
+        document.getElementById("msg").textContent = "전송에 실패했습니다. 다시 시도하세요.";
+        document.getElementById("msg").style.color = "red";
+      });
+    }
+
+    function searchWiki() {
+      const query = document.getElementById("wikiQuery").value.trim();
+      if (!query) return;
+      document.getElementById("wikiFrame").src = "https://en.wikipedia.org/wiki/" + encodeURIComponent(query);
+    }
+  </script>
+</body>
+</html>
