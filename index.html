@@ -277,7 +277,7 @@
   <footer>
     <p>© 0579 Academy | All Rights Reserved</p>
   </footer>
-  <script>
+ <script>
     // Accordion logic
     document.querySelectorAll('.accordion').forEach(acc => {
       acc.addEventListener('click', function() {
@@ -287,8 +287,8 @@
       });
     });
 
-    // Initialize EmailJS with your user ID!
-    emailjs.init("YOUR_EMAILJS_USER_ID"); // <-- Replace with your EmailJS User ID
+    // Initialize EmailJS with your public API key
+    emailjs.init("Ouyx6nPoDQBY_Q15c"); // <--- Your User ID / Public API key
 
     function sendNote() {
       var from_name = document.getElementById("from_name").value.trim();
@@ -303,8 +303,8 @@
         return;
       }
 
-      // Send via EmailJS, match variable names to your EmailJS template!
-      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      // Send via EmailJS, using your Service ID and Template ID
+      emailjs.send("service_ctxz45a", "template_student_note", { // <--- Replace with your actual Template ID if needed!
         from_name: from_name,
         email: email,
         message: message,
@@ -314,10 +314,11 @@
         document.getElementById("msg").textContent = "선생님께 성공적으로 전송되었습니다!";
         document.getElementById("msg").style.color = "green";
         document.getElementById("studentNoteForm").reset();
-        document.getElementById("noteBox").innerText = "";
+        document.getElementById("noteBox").innerText = "여기에 노트를 작성하세요...";
       }, function(error) {
         document.getElementById("msg").textContent = "전송에 실패했습니다. 다시 시도하세요.";
         document.getElementById("msg").style.color = "red";
+        console.error("EmailJS error:", error);
       });
     }
 
@@ -326,6 +327,6 @@
       if (!query) return;
       document.getElementById("wikiFrame").src = "https://en.wikipedia.org/wiki/" + encodeURIComponent(query);
     }
-  </script>
+</script>
 </body>
 </html>
